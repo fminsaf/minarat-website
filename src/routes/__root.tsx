@@ -45,11 +45,23 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					<header className="sticky backdrop-blur-2xl top-0 flex items-center justify-between animate-appear-from-top">
 						<nav>
 							<ul className="flex gap-3">
-								<li className="underline-offset-8 hover:underline">
-									Our Projects
+								<li>
+									<Link
+										to="/projects"
+										className="underline-offset-8 hover:underline"
+										activeProps={{ className: "underline" }}
+									>
+										Our Projects
+									</Link>
 								</li>
 								<li className="underline-offset-8 hover:underline">
-									Contact us
+									<Link
+										to="/contact"
+										className="underline-offset-8 hover:underline"
+										activeProps={{ className: "underline" }}
+									>
+										Contact us
+									</Link>
 								</li>
 							</ul>
 						</nav>
@@ -62,12 +74,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							[ Minarat ] .
 						</Link>
 
-						<button
-							type="button"
+						<Link
+							to="/book"
 							className="border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
+							activeProps={{ className: "bg-taupe-800 text-taupe-100" }}
 						>
 							Book a meeting
-						</button>
+						</Link>
 					</header>
 
 					{children}
