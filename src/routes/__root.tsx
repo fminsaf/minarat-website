@@ -42,9 +42,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body className="bg-fixed bg-linear-150 from-taupe-300 via-taupe-100 to-taupe-200 text-taupe-800">
 				<div className="max-w-7xl h-screen mx-auto p-3 flex flex-col justify-between">
-					<header className="sticky backdrop-blur-2xl top-0 flex items-center justify-between animate-appear-from-top">
+					<header className="sticky backdrop-blur-2xl top-0 flex items-start justify-around gap-3 pt-2 animate-appear-from-top">
 						<nav>
-							<ul className="flex gap-3">
+							<ul className="flex max-sm:flex-col gap-3 text-center">
+								<li>
+									<Link
+										to="/book"
+										className="sm:hidden border-2 border-taupe-800 px-2 py-1 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
+										activeProps={{ className: "bg-taupe-800 text-taupe-100" }}
+									>
+										Book a meeting
+									</Link>
+								</li>
 								<li>
 									<Link
 										to="/projects"
@@ -71,12 +80,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							className="text-3xl font-bold tracking-widest animate-appear-from-top"
 							activeProps={{ className: "hidden" }}
 						>
-							[ Minarat ] .
+							[ Minarat ].
 						</Link>
 
 						<Link
 							to="/book"
-							className="border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
+							className="max-sm:hidden border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
 							activeProps={{ className: "bg-taupe-800 text-taupe-100" }}
 						>
 							Book a meeting
