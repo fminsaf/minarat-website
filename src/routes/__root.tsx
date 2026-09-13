@@ -42,14 +42,26 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body className="bg-fixed bg-linear-150 from-taupe-300 via-taupe-100 to-taupe-200 text-taupe-800">
 				<div className="max-w-7xl h-screen mx-auto p-3 flex flex-col justify-between">
-					<header className="sticky backdrop-blur-2xl top-0 flex items-center justify-between animate-appear-from-top">
+					<header className="backdrop-blur-2xl flex items-center justify-between gap-3 pt-2 animate-appear-from-top">
 						<nav>
 							<ul className="flex gap-3">
-								<li className="underline-offset-8 hover:underline">
-									Our Projects
+								<li>
+									<Link
+										to="/projects"
+										className="underline-offset-8 hover:underline"
+										activeProps={{ className: "underline" }}
+									>
+										Our Projects
+									</Link>
 								</li>
 								<li className="underline-offset-8 hover:underline">
-									Contact us
+									<Link
+										to="/contact"
+										className="underline-offset-8 hover:underline"
+										activeProps={{ className: "underline" }}
+									>
+										Contact us
+									</Link>
 								</li>
 							</ul>
 						</nav>
@@ -59,23 +71,30 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							className="text-3xl font-bold tracking-widest animate-appear-from-top"
 							activeProps={{ className: "hidden" }}
 						>
-							[ Minarat ] .
+							[ Minarat ].
 						</Link>
 
-						<button
-							type="button"
-							className="border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
+						<Link
+							to="/book"
+							className="text-center border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
+							activeProps={{ className: "bg-taupe-800 text-taupe-100" }}
 						>
 							Book a meeting
-						</button>
+						</Link>
 					</header>
 
 					{children}
 
 					<footer className="p-3 bg-taupe-800 text-mauve-100 text-xs grid grid-cols-2 md:grid-cols-3 place-items-center gap-5">
 						<ul className="flex gap-3">
-							<li className="underline-offset-8 hover:underline">
-								Privacy Policy
+							<li>
+								<Link
+									to="/privacy-policy"
+									className="underline-offset-8 hover:underline"
+									activeProps={{ className: "underline" }}
+								>
+									Privacy Policy
+								</Link>
 							</li>
 						</ul>
 
@@ -85,13 +104,27 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
 						<ul className="flex gap-3">
 							<li>
-								<TfiEmail size={20} />
+								<a href="mailto:itsmefminsaf@gmail.com">
+									<TfiEmail size={20} />
+								</a>
 							</li>
 							<li>
-								<LiaLinkedinIn size={20} />
+								<a
+									href="https://www.linkedin.com/company/minarat/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<LiaLinkedinIn size={20} />
+								</a>
 							</li>
 							<li>
-								<LiaGithub size={20} />
+								<a
+									href="https://github.com/Team-Minarat"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<LiaGithub size={20} />
+								</a>
 							</li>
 						</ul>
 					</footer>
