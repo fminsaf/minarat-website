@@ -7,7 +7,7 @@ export const Route = createFileRoute("/book")({
 function RouteComponent() {
 	return (
 		<main className="flex items-center justify-center">
-			Book a meeting here
+			Please wait until we fully launch our service
 		</main>
 	);
 }

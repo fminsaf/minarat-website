@@ -6,6 +6,8 @@ export const Route = createFileRoute("/projects")({
 
 function RouteComponent() {
 	return (
-		<main className="flex items-center justify-center">Featured works</main>
+		<main className="flex items-center justify-center">
+			No projects has been built yet
+		</main>
 	);
 }

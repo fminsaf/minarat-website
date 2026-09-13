@@ -42,18 +42,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body className="bg-fixed bg-linear-150 from-taupe-300 via-taupe-100 to-taupe-200 text-taupe-800">
 				<div className="max-w-7xl h-screen mx-auto p-3 flex flex-col justify-between">
-					<header className="sticky backdrop-blur-2xl top-0 flex items-start justify-around gap-3 pt-2 animate-appear-from-top">
+					<header className="backdrop-blur-2xl flex items-center justify-between gap-3 pt-2 animate-appear-from-top">
 						<nav>
-							<ul className="flex max-sm:flex-col gap-3 text-center">
-								<li>
-									<Link
-										to="/book"
-										className="sm:hidden border-2 border-taupe-800 px-2 py-1 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
-										activeProps={{ className: "bg-taupe-800 text-taupe-100" }}
-									>
-										Book a meeting
-									</Link>
-								</li>
+							<ul className="flex gap-3">
 								<li>
 									<Link
 										to="/projects"
@@ -85,7 +76,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
 						<Link
 							to="/book"
-							className="max-sm:hidden border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
+							className="text-center border-2 border-taupe-800 px-3 py-2 font-semibold hover:bg-taupe-800 hover:text-taupe-100 duration-300 cursor-pointer"
 							activeProps={{ className: "bg-taupe-800 text-taupe-100" }}
 						>
 							Book a meeting
@@ -107,13 +98,27 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
 						<ul className="flex gap-3">
 							<li>
-								<TfiEmail size={20} />
+								<a href="mailto:itsmefminsaf@gmail.com">
+									<TfiEmail size={20} />
+								</a>
 							</li>
 							<li>
-								<LiaLinkedinIn size={20} />
+								<a
+									href="https://www.linkedin.com/company/minarat/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<LiaLinkedinIn size={20} />
+								</a>
 							</li>
 							<li>
-								<LiaGithub size={20} />
+								<a
+									href="https://github.com/Team-Minarat"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<LiaGithub size={20} />
+								</a>
 							</li>
 						</ul>
 					</footer>
