@@ -87,8 +87,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
 					<footer className="p-3 bg-taupe-800 text-mauve-100 text-xs grid grid-cols-2 md:grid-cols-3 place-items-center gap-5">
 						<ul className="flex gap-3">
-							<li className="underline-offset-8 hover:underline">
-								Privacy Policy
+							<li>
+								<Link
+									to="/privacy-policy"
+									className="underline-offset-8 hover:underline"
+									activeProps={{ className: "underline" }}
+								>
+									Privacy Policy
+								</Link>
 							</li>
 						</ul>
 
