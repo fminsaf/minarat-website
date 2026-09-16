@@ -10,24 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BookRouteImport } from './routes/book'
-import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as TalkRouteRouteImport } from './routes/talk/route'
+import { Route as TalkIndexRouteImport } from './routes/talk/index'
+import { Route as TalkDiscussIdeaRouteImport } from './routes/talk/discuss-idea'
+import { Route as TalkImproveSomethingRouteImport } from './routes/talk/improve-something'
+import { Route as TalkNewProjectRouteImport } from './routes/talk/new-project'
+import { Route as TalkSomethingElseRouteImport } from './routes/talk/something-else'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookRoute = BookRouteImport.update({
-  id: '/book',
-  path: '/book',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -35,48 +28,103 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
+const TalkRouteRoute = TalkRouteRouteImport.update({
+  id: '/talk',
+  path: '/talk',
   getParentRoute: () => rootRouteImport,
+} as any)
+const TalkIndexRoute = TalkIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TalkRouteRoute,
+} as any)
+const TalkDiscussIdeaRoute = TalkDiscussIdeaRouteImport.update({
+  id: '/discuss-idea',
+  path: '/discuss-idea',
+  getParentRoute: () => TalkRouteRoute,
+} as any)
+const TalkImproveSomethingRoute = TalkImproveSomethingRouteImport.update({
+  id: '/improve-something',
+  path: '/improve-something',
+  getParentRoute: () => TalkRouteRoute,
+} as any)
+const TalkNewProjectRoute = TalkNewProjectRouteImport.update({
+  id: '/new-project',
+  path: '/new-project',
+  getParentRoute: () => TalkRouteRoute,
+} as any)
+const TalkSomethingElseRoute = TalkSomethingElseRouteImport.update({
+  id: '/something-else',
+  path: '/something-else',
+  getParentRoute: () => TalkRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/book': typeof BookRoute
-  '/contact': typeof ContactRoute
+  '/talk': typeof TalkRouteRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/projects': typeof ProjectsRoute
+  '/talk/discuss-idea': typeof TalkDiscussIdeaRoute
+  '/talk/improve-something': typeof TalkImproveSomethingRoute
+  '/talk/new-project': typeof TalkNewProjectRoute
+  '/talk/something-else': typeof TalkSomethingElseRoute
+  '/talk/': typeof TalkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/book': typeof BookRoute
-  '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/projects': typeof ProjectsRoute
+  '/talk/discuss-idea': typeof TalkDiscussIdeaRoute
+  '/talk/improve-something': typeof TalkImproveSomethingRoute
+  '/talk/new-project': typeof TalkNewProjectRoute
+  '/talk/something-else': typeof TalkSomethingElseRoute
+  '/talk': typeof TalkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/book': typeof BookRoute
-  '/contact': typeof ContactRoute
+  '/talk': typeof TalkRouteRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/projects': typeof ProjectsRoute
+  '/talk/discuss-idea': typeof TalkDiscussIdeaRoute
+  '/talk/improve-something': typeof TalkImproveSomethingRoute
+  '/talk/new-project': typeof TalkNewProjectRoute
+  '/talk/something-else': typeof TalkSomethingElseRoute
+  '/talk/': typeof TalkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book' | '/contact' | '/privacy-policy' | '/projects'
+  fullPaths:
+    | '/'
+    | '/talk'
+    | '/privacy-policy'
+    | '/talk/discuss-idea'
+    | '/talk/improve-something'
+    | '/talk/new-project'
+    | '/talk/something-else'
+    | '/talk/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book' | '/contact' | '/privacy-policy' | '/projects'
-  id: '__root__' | '/' | '/book' | '/contact' | '/privacy-policy' | '/projects'
+  to:
+    | '/'
+    | '/privacy-policy'
+    | '/talk/discuss-idea'
+    | '/talk/improve-something'
+    | '/talk/new-project'
+    | '/talk/something-else'
+    | '/talk'
+  id:
+    | '__root__'
+    | '/'
+    | '/talk'
+    | '/privacy-policy'
+    | '/talk/discuss-idea'
+    | '/talk/improve-something'
+    | '/talk/new-project'
+    | '/talk/something-else'
+    | '/talk/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BookRoute: typeof BookRoute
-  ContactRoute: typeof ContactRoute
+  TalkRouteRoute: typeof TalkRouteRouteWithChildren
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  ProjectsRoute: typeof ProjectsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -88,20 +136,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/book': {
-      id: '/book'
-      path: '/book'
-      fullPath: '/book'
-      preLoaderRoute: typeof BookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
@@ -109,22 +143,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
+    '/talk': {
+      id: '/talk'
+      path: '/talk'
+      fullPath: '/talk'
+      preLoaderRoute: typeof TalkRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/talk/': {
+      id: '/talk/'
+      path: '/'
+      fullPath: '/talk/'
+      preLoaderRoute: typeof TalkIndexRouteImport
+      parentRoute: typeof TalkRouteRoute
+    }
+    '/talk/discuss-idea': {
+      id: '/talk/discuss-idea'
+      path: '/discuss-idea'
+      fullPath: '/talk/discuss-idea'
+      preLoaderRoute: typeof TalkDiscussIdeaRouteImport
+      parentRoute: typeof TalkRouteRoute
+    }
+    '/talk/improve-something': {
+      id: '/talk/improve-something'
+      path: '/improve-something'
+      fullPath: '/talk/improve-something'
+      preLoaderRoute: typeof TalkImproveSomethingRouteImport
+      parentRoute: typeof TalkRouteRoute
+    }
+    '/talk/new-project': {
+      id: '/talk/new-project'
+      path: '/new-project'
+      fullPath: '/talk/new-project'
+      preLoaderRoute: typeof TalkNewProjectRouteImport
+      parentRoute: typeof TalkRouteRoute
+    }
+    '/talk/something-else': {
+      id: '/talk/something-else'
+      path: '/something-else'
+      fullPath: '/talk/something-else'
+      preLoaderRoute: typeof TalkSomethingElseRouteImport
+      parentRoute: typeof TalkRouteRoute
     }
   }
 }
 
+interface TalkRouteRouteChildren {
+  TalkDiscussIdeaRoute: typeof TalkDiscussIdeaRoute
+  TalkImproveSomethingRoute: typeof TalkImproveSomethingRoute
+  TalkNewProjectRoute: typeof TalkNewProjectRoute
+  TalkSomethingElseRoute: typeof TalkSomethingElseRoute
+  TalkIndexRoute: typeof TalkIndexRoute
+}
+
+const TalkRouteRouteChildren: TalkRouteRouteChildren = {
+  TalkDiscussIdeaRoute: TalkDiscussIdeaRoute,
+  TalkImproveSomethingRoute: TalkImproveSomethingRoute,
+  TalkNewProjectRoute: TalkNewProjectRoute,
+  TalkSomethingElseRoute: TalkSomethingElseRoute,
+  TalkIndexRoute: TalkIndexRoute,
+}
+
+const TalkRouteRouteWithChildren = TalkRouteRoute._addFileChildren(
+  TalkRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BookRoute: BookRoute,
-  ContactRoute: ContactRoute,
+  TalkRouteRoute: TalkRouteRouteWithChildren,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
-  ProjectsRoute: ProjectsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

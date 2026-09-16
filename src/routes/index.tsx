@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { LuMessageCircle } from "react-icons/lu";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -21,20 +22,13 @@ function Home() {
 				</p>
 			</div>
 
-			<div className="flex gap-3 items-center justify-center">
-				<Link
-					to="/projects"
-					className="px-3 py-2 border-2 hover:bg-taupe-700 hover:text-taupe-100 duration-300"
-				>
-					Explore selected projects
-				</Link>
-				<Link
-					to="/book"
-					className="px-3 py-2 border-2 bg-taupe-900 text-taupe-100 hover:scale-110 duration-300"
-				>
-					Let's talk
-				</Link>
-			</div>
+			<Link
+				to="/talk"
+				className="px-4 py-2 border-2 bg-taupe-800 text-taupe-100 hover:scale-105 hover:-translate-y-1 duration-300 flex items-center gap-2 rounded-full"
+			>
+				<LuMessageCircle />
+				Talk with us
+			</Link>
 		</main>
 	);
 }
