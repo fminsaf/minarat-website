@@ -1,4 +1,4 @@
-import { createFileRoute, Link, linkOptions } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
 	LuLightbulb,
 	LuMessageCircle,
@@ -10,7 +10,13 @@ export const Route = createFileRoute("/talk/")({
 	component: RouteComponent,
 });
 
-const options = linkOptions([
+const options = [
+	{
+		to: "/talk/discuss-idea",
+		option: "Discuss an idea",
+		desc: "I have an idea I'd like to explore.",
+		Icon: LuLightbulb,
+	},
 	{
 		to: "/talk/new-project",
 		option: "Start a Project",
@@ -18,24 +24,18 @@ const options = linkOptions([
 		Icon: LuRocket,
 	},
 	{
-		to: "/talk/new-project",
-		option: "Start a Project",
-		desc: "I have a project I'd like Minarat to build",
+		to: "/talk/improve-something",
+		option: "Improve something",
+		desc: "I have an existing website, app, or product.",
 		Icon: LuWrench,
 	},
 	{
-		to: "/talk/new-project",
-		option: "Start a Project",
-		desc: "I have a project I'd like Minarat to build",
-		Icon: LuLightbulb,
-	},
-	{
-		to: "/talk/new-project",
-		option: "Start a Project",
-		desc: "I have a project I'd like Minarat to build",
+		to: "/talk/something-else",
+		option: "Something else",
+		desc: "I want to talk about something else.",
 		Icon: LuMessageCircle,
 	},
-]);
+];
 
 function RouteComponent() {
 	return (
@@ -44,16 +44,16 @@ function RouteComponent() {
 				What would you like to talk about ?
 			</h2>
 
-			<ul className="flex flex-wrap gap-3 justify-center animate-appear-from-top">
+			<ul className="max-w-3xl flex flex-wrap gap-3 justify-center animate-appear-from-top">
 				{options.map(({ to, option, desc, Icon }) => (
 					<li key={to}>
 						<Link
-							to="/talk/new-project"
-							className="flex flex-col items-center justify-center gap-3 rounded-2xl px-2 py-4 text-center border-2 bg-taupe-800 text-taupe-200 hover:scale-105 hover:-translate-y-2 duration-300"
+							to={to}
+							className="grid grid-cols-[auto_auto] gap-2 rounded-2xl p-4 border-2 bg-taupe-800 text-taupe-200 hover:-translate-y-1 duration-300"
 						>
-							<Icon size={60} />
-							<span className="font-bold">{option}</span>
-							<span className="text-sm w-40 text-taupe-400">{desc}</span>
+							<Icon size={30} className="place-self-center" />
+							<span className="font-bold text-xl w-fit">{option}</span>
+							<span className="text-sm col-span-2 text-taupe-400">{desc}</span>
 						</Link>
 					</li>
 				))}
