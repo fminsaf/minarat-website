@@ -5,7 +5,7 @@ export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
 	return (
-		<main className="flex-1 flex flex-col items-center justify-center gap-10 md:gap-20">
+		<main className="flex-1 h-screen flex flex-col items-center justify-center gap-10 md:gap-20">
 			<h1 className="text-5xl sm:text-7xl lg:text-9xl font-extrabold tracking-widest animate-appear-from-bottom">
 				[ Minarat ] .
 			</h1>

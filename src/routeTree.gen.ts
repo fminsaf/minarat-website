@@ -11,12 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as TalkRouteRouteImport } from './routes/talk/route'
-import { Route as TalkIndexRouteImport } from './routes/talk/index'
-import { Route as TalkDiscussIdeaRouteImport } from './routes/talk/discuss-idea'
-import { Route as TalkImproveSomethingRouteImport } from './routes/talk/improve-something'
-import { Route as TalkNewProjectRouteImport } from './routes/talk/new-project'
-import { Route as TalkSomethingElseRouteImport } from './routes/talk/something-else'
+import { Route as TalkRouteImport } from './routes/talk'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,103 +23,40 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TalkRouteRoute = TalkRouteRouteImport.update({
+const TalkRoute = TalkRouteImport.update({
   id: '/talk',
   path: '/talk',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TalkIndexRoute = TalkIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => TalkRouteRoute,
-} as any)
-const TalkDiscussIdeaRoute = TalkDiscussIdeaRouteImport.update({
-  id: '/discuss-idea',
-  path: '/discuss-idea',
-  getParentRoute: () => TalkRouteRoute,
-} as any)
-const TalkImproveSomethingRoute = TalkImproveSomethingRouteImport.update({
-  id: '/improve-something',
-  path: '/improve-something',
-  getParentRoute: () => TalkRouteRoute,
-} as any)
-const TalkNewProjectRoute = TalkNewProjectRouteImport.update({
-  id: '/new-project',
-  path: '/new-project',
-  getParentRoute: () => TalkRouteRoute,
-} as any)
-const TalkSomethingElseRoute = TalkSomethingElseRouteImport.update({
-  id: '/something-else',
-  path: '/something-else',
-  getParentRoute: () => TalkRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/talk': typeof TalkRouteRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/talk/discuss-idea': typeof TalkDiscussIdeaRoute
-  '/talk/improve-something': typeof TalkImproveSomethingRoute
-  '/talk/new-project': typeof TalkNewProjectRoute
-  '/talk/something-else': typeof TalkSomethingElseRoute
-  '/talk/': typeof TalkIndexRoute
+  '/talk': typeof TalkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/talk/discuss-idea': typeof TalkDiscussIdeaRoute
-  '/talk/improve-something': typeof TalkImproveSomethingRoute
-  '/talk/new-project': typeof TalkNewProjectRoute
-  '/talk/something-else': typeof TalkSomethingElseRoute
-  '/talk': typeof TalkIndexRoute
+  '/talk': typeof TalkRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/talk': typeof TalkRouteRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/talk/discuss-idea': typeof TalkDiscussIdeaRoute
-  '/talk/improve-something': typeof TalkImproveSomethingRoute
-  '/talk/new-project': typeof TalkNewProjectRoute
-  '/talk/something-else': typeof TalkSomethingElseRoute
-  '/talk/': typeof TalkIndexRoute
+  '/talk': typeof TalkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/talk'
-    | '/privacy-policy'
-    | '/talk/discuss-idea'
-    | '/talk/improve-something'
-    | '/talk/new-project'
-    | '/talk/something-else'
-    | '/talk/'
+  fullPaths: '/' | '/privacy-policy' | '/talk'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/privacy-policy'
-    | '/talk/discuss-idea'
-    | '/talk/improve-something'
-    | '/talk/new-project'
-    | '/talk/something-else'
-    | '/talk'
-  id:
-    | '__root__'
-    | '/'
-    | '/talk'
-    | '/privacy-policy'
-    | '/talk/discuss-idea'
-    | '/talk/improve-something'
-    | '/talk/new-project'
-    | '/talk/something-else'
-    | '/talk/'
+  to: '/' | '/privacy-policy' | '/talk'
+  id: '__root__' | '/' | '/privacy-policy' | '/talk'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TalkRouteRoute: typeof TalkRouteRouteWithChildren
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TalkRoute: typeof TalkRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -147,71 +79,16 @@ declare module '@tanstack/react-router' {
       id: '/talk'
       path: '/talk'
       fullPath: '/talk'
-      preLoaderRoute: typeof TalkRouteRouteImport
+      preLoaderRoute: typeof TalkRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/talk/': {
-      id: '/talk/'
-      path: '/'
-      fullPath: '/talk/'
-      preLoaderRoute: typeof TalkIndexRouteImport
-      parentRoute: typeof TalkRouteRoute
-    }
-    '/talk/discuss-idea': {
-      id: '/talk/discuss-idea'
-      path: '/discuss-idea'
-      fullPath: '/talk/discuss-idea'
-      preLoaderRoute: typeof TalkDiscussIdeaRouteImport
-      parentRoute: typeof TalkRouteRoute
-    }
-    '/talk/improve-something': {
-      id: '/talk/improve-something'
-      path: '/improve-something'
-      fullPath: '/talk/improve-something'
-      preLoaderRoute: typeof TalkImproveSomethingRouteImport
-      parentRoute: typeof TalkRouteRoute
-    }
-    '/talk/new-project': {
-      id: '/talk/new-project'
-      path: '/new-project'
-      fullPath: '/talk/new-project'
-      preLoaderRoute: typeof TalkNewProjectRouteImport
-      parentRoute: typeof TalkRouteRoute
-    }
-    '/talk/something-else': {
-      id: '/talk/something-else'
-      path: '/something-else'
-      fullPath: '/talk/something-else'
-      preLoaderRoute: typeof TalkSomethingElseRouteImport
-      parentRoute: typeof TalkRouteRoute
     }
   }
 }
 
-interface TalkRouteRouteChildren {
-  TalkDiscussIdeaRoute: typeof TalkDiscussIdeaRoute
-  TalkImproveSomethingRoute: typeof TalkImproveSomethingRoute
-  TalkNewProjectRoute: typeof TalkNewProjectRoute
-  TalkSomethingElseRoute: typeof TalkSomethingElseRoute
-  TalkIndexRoute: typeof TalkIndexRoute
-}
-
-const TalkRouteRouteChildren: TalkRouteRouteChildren = {
-  TalkDiscussIdeaRoute: TalkDiscussIdeaRoute,
-  TalkImproveSomethingRoute: TalkImproveSomethingRoute,
-  TalkNewProjectRoute: TalkNewProjectRoute,
-  TalkSomethingElseRoute: TalkSomethingElseRoute,
-  TalkIndexRoute: TalkIndexRoute,
-}
-
-const TalkRouteRouteWithChildren = TalkRouteRoute._addFileChildren(
-  TalkRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TalkRouteRoute: TalkRouteRouteWithChildren,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TalkRoute: TalkRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
