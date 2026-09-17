@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, linkOptions } from "@tanstack/react-router";
 import {
 	LuLightbulb,
 	LuMessageCircle,
@@ -10,55 +10,54 @@ export const Route = createFileRoute("/talk/")({
 	component: RouteComponent,
 });
 
+const options = linkOptions([
+	{
+		to: "/talk/new-project",
+		option: "Start a Project",
+		desc: "I have a project I'd like Minarat to build",
+		Icon: LuRocket,
+	},
+	{
+		to: "/talk/new-project",
+		option: "Start a Project",
+		desc: "I have a project I'd like Minarat to build",
+		Icon: LuWrench,
+	},
+	{
+		to: "/talk/new-project",
+		option: "Start a Project",
+		desc: "I have a project I'd like Minarat to build",
+		Icon: LuLightbulb,
+	},
+	{
+		to: "/talk/new-project",
+		option: "Start a Project",
+		desc: "I have a project I'd like Minarat to build",
+		Icon: LuMessageCircle,
+	},
+]);
+
 function RouteComponent() {
 	return (
 		<main className="flex flex-col items-center justify-center gap-10">
-			<h2 className="text-2xl font-bold">
+			<h2 className="text-2xl font-bold animate-appear-from-bottom">
 				What would you like to talk about ?
 			</h2>
 
-			<div className="grid gap-3 grid-cols-2">
-				<Link
-					to="/talk/new-project"
-					className="group flex flex-col items-center justify-center gap-2 size-44 rounded-2xl p-3 text-center border-2 border-taupe-800 hover:bg-taupe-800 hover:text-taupe-200 hover:scale-105 hover:-translate-y-2 duration-300"
-				>
-					<LuRocket size={60} className="group-hover:hidden" />
-					<span className="font-bold">Start a project</span>
-					<span className="text-sm hidden group-hover:inline">
-						I have a project I'd like Minarat to build.
-					</span>
-				</Link>
-				<Link
-					to="/talk/improve-something"
-					className="group flex flex-col items-center justify-center gap-2 size-44 rounded-2xl p-3 text-center border-2 border-taupe-800 hover:bg-taupe-800 hover:text-taupe-200 hover:scale-105 hover:-translate-y-2 duration-300"
-				>
-					<LuWrench size={60} className="group-hover:hidden" />
-					<span className="font-bold">Improve something</span>
-					<span className="text-sm hidden group-hover:inline">
-						I have an existing website, app, or product that needs work.
-					</span>
-				</Link>
-				<Link
-					to="/talk/discuss-idea"
-					className="group flex flex-col items-center justify-center gap-2 size-44 rounded-2xl p-3 text-center border-2 border-taupe-800 hover:bg-taupe-800 hover:text-taupe-200 hover:scale-105 hover:-translate-y-2 duration-300"
-				>
-					<LuLightbulb size={60} className="group-hover:hidden" />
-					<span className="font-bold">Discuss an idea</span>
-					<span className="text-sm hidden group-hover:inline">
-						I have an idea and want to explore what's possible.
-					</span>
-				</Link>
-				<Link
-					to="/talk/something-else"
-					className="group flex flex-col items-center justify-center gap-2 size-44 rounded-2xl p-3 text-center border-2 border-taupe-800 hover:bg-taupe-800 hover:text-taupe-200 hover:scale-105 hover:-translate-y-2 duration-300"
-				>
-					<LuMessageCircle size={60} className="group-hover:hidden" />
-					<span className="font-bold">Something else</span>
-					<span className="text-sm hidden group-hover:inline">
-						I'd like to discuss something different with the team.
-					</span>
-				</Link>
-			</div>
+			<ul className="flex flex-wrap gap-3 justify-center animate-appear-from-top">
+				{options.map(({ to, option, desc, Icon }) => (
+					<li key={to}>
+						<Link
+							to="/talk/new-project"
+							className="flex flex-col items-center justify-center gap-3 rounded-2xl px-2 py-4 text-center border-2 bg-taupe-800 text-taupe-200 hover:scale-105 hover:-translate-y-2 duration-300"
+						>
+							<Icon size={60} />
+							<span className="font-bold">{option}</span>
+							<span className="text-sm w-40 text-taupe-400">{desc}</span>
+						</Link>
+					</li>
+				))}
+			</ul>
 		</main>
 	);
 }
