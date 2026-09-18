@@ -14,6 +14,7 @@ import {
 	LuRocket,
 	LuWrench,
 } from "react-icons/lu";
+import { bookMeeting } from "#/lib/book";
 
 export const Route = createFileRoute("/talk")({
 	component: RouteComponent,
@@ -55,6 +56,10 @@ function RouteComponent() {
 
 	const [next14Days, setNext14Days] = useState<Date[]>([]);
 
+	const [bookingStatus, setBookingStatus] = useState<
+		"pending" | "failed" | "success" | null
+	>(null);
+
 	useEffect(() => {
 		const today = new Date();
 
@@ -69,6 +74,17 @@ function RouteComponent() {
 	}, []);
 
 	const selectedTime = timeRange.find((item) => item.range === time);
+
+	const handleBooking = async () => {
+		if (!topic || !date || !time) return;
+
+		setBookingStatus("pending");
+		const { booked } = await bookMeeting({ data: { topic, date, time } });
+
+		if (booked) return setBookingStatus("success");
+
+		return setBookingStatus("failed");
+	};
 
 	return (
 		<main className="flex-1 flex flex-col items-center justify-center gap-10">
@@ -195,10 +211,19 @@ function RouteComponent() {
 				<div className="flex flex-col items-center gap-5 animate-appear-from-bottom">
 					<button
 						type="button"
-						className="bg-taupe-800 text-taupe-100 px-4 py-2 rounded-2xl cursor-pointer"
-						onClick={() => console.log(topic, date, time)}
+						className="bg-taupe-800 text-taupe-100 disabled:bg-taupe-700 px-4 py-2 rounded-2xl cursor-pointer"
+						onClick={handleBooking}
+						disabled={
+							bookingStatus === "pending" || bookingStatus === "success"
+						}
 					>
-						Book now
+						{bookingStatus === "pending"
+							? "Booking your meeting..."
+							: bookingStatus === "failed"
+								? "Booking failed. Please try again."
+								: bookingStatus === "success"
+									? "Meeting booked successfully"
+									: "Book meeting"}
 					</button>
 				</div>
 			)}
