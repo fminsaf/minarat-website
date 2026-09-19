@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { BsWhatsapp } from "react-icons/bs";
 import { ImInfo } from "react-icons/im";
 import {
 	LuClock2,
@@ -14,7 +15,6 @@ import {
 	LuRocket,
 	LuWrench,
 } from "react-icons/lu";
-import { bookMeeting } from "#/lib/book";
 
 export const Route = createFileRoute("/talk")({
 	component: RouteComponent,
@@ -46,7 +46,7 @@ const finalMessages = {
 };
 
 function formatTime(time: number) {
-	return time < 12 ? `${time}:00 AM` : `${time - 12 || 12}:00 PM`;
+	return time < 12 ? `${time}:00 AM` : `${time === 12 ? 12 : time - 12}:00 PM`;
 }
 
 function RouteComponent() {
@@ -55,10 +55,6 @@ function RouteComponent() {
 	const [time, setTime] = useState<number | null>(null);
 
 	const [next14Days, setNext14Days] = useState<Date[]>([]);
-
-	const [bookingStatus, setBookingStatus] = useState<
-		"pending" | "failed" | "success" | null
-	>(null);
 
 	useEffect(() => {
 		const today = new Date();
@@ -75,15 +71,37 @@ function RouteComponent() {
 
 	const selectedTime = timeRange.find((item) => item.range === time);
 
-	const handleBooking = async () => {
-		if (!topic || !date || !time) return;
+	const handleBooking = () => {
+		if (!topic || !date || time === null) return;
 
-		setBookingStatus("pending");
-		const { booked } = await bookMeeting({ data: { topic, date, time } });
+		const topicName = topicList.find(
+			(item) => item.topicId === topic,
+		)?.topicName;
 
-		if (booked) return setBookingStatus("success");
+		const message = `
+Assalamu Alaikum,
 
-		return setBookingStatus("failed");
+I'd like to schedule a meeting with Minarat.
+
+Topic: ${topicName}
+Date: ${date.toLocaleDateString("en-US", {
+			month: "long",
+			day: "numeric",
+			year: "numeric",
+		})}
+Time: ${formatTime(time)}
+Timezone: Sri Lanka (GMT+5:30)
+
+Thank you.
+		`.trim();
+
+		const whatsappNumber = "94723142657";
+
+		const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+			message,
+		)}`;
+
+		window.open(whatsappUrl, "_blank");
 	};
 
 	return (
@@ -182,7 +200,7 @@ function RouteComponent() {
 						))}
 					</div>
 				</div>
-			) : !time ? (
+			) : time === null ? (
 				<div className="space-y-5 animate-appear-from-bottom">
 					<h2 className="text-2xl font-bold text-center">
 						What time works for you?
@@ -204,28 +222,18 @@ function RouteComponent() {
 
 					<p className="text-xs flex items-center gap-2 mx-auto w-fit">
 						<ImInfo />
-						Times are shown in GMT+5:30.
+						Times are shown in Sri Lanka time (GMT+5:30).
 					</p>
 				</div>
 			) : (
-				<div className="flex flex-col items-center gap-5 animate-appear-from-bottom">
-					<button
-						type="button"
-						className="bg-taupe-800 text-taupe-100 disabled:bg-taupe-700 px-4 py-2 rounded-2xl cursor-pointer"
-						onClick={handleBooking}
-						disabled={
-							bookingStatus === "pending" || bookingStatus === "success"
-						}
-					>
-						{bookingStatus === "pending"
-							? "Booking your meeting..."
-							: bookingStatus === "failed"
-								? "Booking failed. Please try again."
-								: bookingStatus === "success"
-									? "Meeting booked successfully"
-									: "Book meeting"}
-					</button>
-				</div>
+				<button
+					type="button"
+					onClick={handleBooking}
+					className="bg-taupe-800 text-taupe-100 flex items-center gap-2 px-4 py-2 rounded-2xl cursor-pointer animate-appear-from-bottom"
+				>
+					<BsWhatsapp />
+					Schedule meeting via WhatsApp
+				</button>
 			)}
 		</main>
 	);
